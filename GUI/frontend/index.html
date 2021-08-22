@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Kijiji Scraper</title>
+        <link rel = "shortcut icon" href = "{{url_for('static', filename = 'images/Kijiji_Logo.png') }}">
+        <link rel="stylesheet"  type = "text/css"href = "{{url_for('static', filename = 'styles.css')}}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+        <script type = 'text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type = 'text/javascript' src = "{{url_for('static', filename = 'api.js')}}"></script>
+    </head>
+    <body>
+        <header>
+            <div class = "Logo">
+                <img src = "{{url_for('static', filename = 'images/Kijiji_Logo.png')}}">
+                <h1 class = "Logo_Facebook" style="color:black;">Scraper</h1>
+            </div>
+            <section class = "main">
+                    <div class = "Button" id = "dd1">
+                    </div>
+                    <div class = "Button" id = "dd2">
+                    </div>
+
+            </section>
+        </header>
+        <footer>
+            <a href=# id=test><button class= "Button1" id = "Send">Test</button></a>
+            <button class = "Button1" id = "Create"><strong>Create</strong></button>
+        </footer>
+        <img class = "LogoThirdRock"src = "{{url_for('static', filename = 'images/LogoThirdRock.svg')}}">
+        <script text = "text/javascript" src = "{{url_for('static', filename = 'script.js')}}"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    </body>
+
+</html>
