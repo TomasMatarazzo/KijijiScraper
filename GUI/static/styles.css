@@ -207,7 +207,7 @@ footer{
     height: 20%;
     align-items: flex-end;
     transition: 0.5s;
-    padding-left: 9%;
+    padding-left: 17%;
 }
 
 .Button, .Send ,.Options{
@@ -302,8 +302,6 @@ footer{
     background: #999;
 }
 
-
-
 input {
     width: 90%;
 }
@@ -317,7 +315,7 @@ input {
         visibility:hidden;
     }
     .footer{
-        padding-left:0%;
+        padding-left:17%;
         margin-left:3em;
     }
     section{
@@ -330,7 +328,7 @@ input {
         height: 60%;
     }
     footer{
-        padding-left:0%;
+        padding-left:17%;
     }
 }
 

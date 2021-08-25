@@ -115,7 +115,7 @@ var menu = new Dropdown({
 var menu2 = new Dropdown({
     id: "dd2",
     phrase: "Choose City",
-    val:"-",
+    val:"City",
     data:['-']
 });
 
@@ -166,8 +166,8 @@ observer = new MutationObserver(function(mutationsList, observer) {
     }
     var menu2 = new Dropdown({
         id: "dd2",
-        phrase: "Type of advertisement",
-        val:"-",
+        phrase: "Choose City",
+        val:"City",
         data:list
     });
 });

@@ -22,16 +22,9 @@ class Scraping:
     def FindPage(self, arg1, arg2, state, city):
 
         try:
-        #Starting de chrome driver
-
             marketplace = 'https://www.kijiji.ca/'
 
-
-            #Handling notifications
-
-
-            #Specify the paht
-
+            #Starting safari driver
             driver = webdriver.Safari()
 
             #Later we will check with mobile-facebook
@@ -49,15 +42,11 @@ class Scraping:
             driver.get(marketplace)
             #Temporary values 
 
-
             i = str(arg1)
             j = str(arg2)
 
 
-            time.sleep(2)
-            #url = marketplace + 'b-commercial-office-space/' + 'alberta/'+ 'wanted-office-space/' + 'k0c40l1700273?%2C&ad=wanted&address='+ address +'%2C+ON&radius=1000.0'
-            #driver.get(url)
-            #Selection of the location
+            # Selection of the location
 
             address_box = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.location-wrapper ul li:nth-child('+ i +')')))
             address_box.click()
@@ -121,22 +110,32 @@ class Scraping:
 
         # Searching all the elements and saving it on a list
         time.sleep(random.randint(1, 3))
-
-        #Searching all the elements and saving it on a list
-        n_scrolls = 2
-
-        for n in range(1,n_scrolls):
-            driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
-            time.sleep(5)
-            elements = driver.find_elements(By.CSS_SELECTOR, ".title:nth-child(1)")
-            elements = [x.get_attribute('href') for x in elements ]
-            elements = list(set(elements))
-                
+        urls = []
         info = []
+
+        MorePages = True
+        while ( MorePages):
+            n_scrolls = 2
+
+            for n in range(1,n_scrolls):
+                driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
+                time.sleep(5)
+                elements = driver.find_elements(By.CSS_SELECTOR, ".title:nth-child(1)")
+                elements = [x.get_attribute('href') for x in elements ]
+                elements = list(set(elements))
+            for e in elements:
+                urls.append(e)
+
+            try:
+                next_page = driver.find_element(By.CSS_SELECTOR,"a[title = 'Next']")
+                next_page.click()
+            except:
+                MorePages = False
+
         i = 0
-        for e in elements:
-            i = i + 1
-            info.append(self.Extract(e,driver))
+        for e in urls:
+                i = i + 1
+                info.append(self.Extract(e,driver))
         return info
 
     def Extract( self, url , driver):
@@ -154,7 +153,6 @@ class Scraping:
             # Searching the information for each item of the dic
             #Finding id
 
-
             id = [int(s) for s in re.findall(r'-?\d+\.?\d*',url )][0]
             information['Unique Id'] = id
 
@@ -164,7 +162,6 @@ class Scraping:
                                             "h1[class = 'title-2323565163'] ")
             information['Title'] = title.text
 
-            # Finding the name of the profile
 
             # Finding the description
 
@@ -193,25 +190,33 @@ class Scraping:
 
                 date = date[0]
 
-            except:
-                date = driver.find_element(By.CSS_SELECTOR,
-                                            ".datePosted-383942873 span")
-                date = date.get_attribute('title')
+                information['Date'] = date
 
-            information['Date'] = date
+            except:
+                try:
+                    date = driver.find_element(By.CSS_SELECTOR,
+                                            ".datePosted-383942873 span")
+                    date = date.get_attribute('title')
+
+                    information['Date'] = date
+                except:
+                    print('error')
+
 
 
         #Address
 
-            address = driver.find_element(By.CSS_SELECTOR,
+            try:
+                address = driver.find_element(By.CSS_SELECTOR,
                                             ".address-3617944557").text
-            information['Address'] = address
+                information['Address'] = address
+            except:
+                print("no address")
 
             return information
 
     def createExcel(self,info):
 
-            #Create the folder where you will put the paths.
             df = pd.DataFrame(info)
             temp = str(Path(__file__).parent.parent.absolute())
             temp = temp + '/Data'
