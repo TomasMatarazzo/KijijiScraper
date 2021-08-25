@@ -61,9 +61,11 @@ function Dropdown(object){
 
         //Events
         var self = this;
-        this.element.addEventListener('mousedown', ()=>{
-                    if (self.isVisible)
-                        self.hide();
+        this.element.addEventListener('mousedown', (e)=>{
+                    if (self.isVisible){
+                        if  (e.target.className == "dropdown_item")
+                            self.hide();
+                    }
                     else
                         self.show();
         });
@@ -99,7 +101,7 @@ function Dropdown(object){
 
 var menu = new Dropdown({
     id: "dd1",
-    phrase: "Choose value",
+    phrase: "Choose state",
     val:"Location",
     data:   ["Alberta",
     "British Columbia",
@@ -112,7 +114,7 @@ var menu = new Dropdown({
 
 var menu2 = new Dropdown({
     id: "dd2",
-    phrase: "Type of advertisement",
+    phrase: "Choose City",
     val:"-",
     data:['-']
 });

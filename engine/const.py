@@ -1,71 +1,62 @@
 province_dict = {
-    "Alberta": "1",
-    "British Columbia": "2",
-    "Manitoba": "3",
-    "Nova Scotia": "6",
-    "Ontario": "7",
-    "Qu\u00e9bec": "9",
-    "Saskatchewan": "10",
+    1: "Alberta",
+    2: "BritishColumbia",
+    3: "Manitoba",
+    6: "NovaScotia",
+    7: "Ontario",
+    10: "Qu\u00e9bec",
+    11: "Saskatchewan",
 }
 
 city_dict = {
-    "1": {
-        "Calgary": "2",
-        "Edmonton Area": "3",
+    2: {6: "Vancouver",
+        8: "Kelowna",
+        20: "Victoria"},
+    1: {2: "Calgary",
+        3: "Edmonton"
+        },
+    3: {
+        4: "Winnipeg"
     },
-    "2": {
-        "Greater Vancouver Area": "6",
-        "Kelowna": "8",
-        "Victoria": "20",
+    6: {
+        4: "Halifax"
     },
-    "3": {
-        "Winnipeg": "4"
+    7: {
+        1: "Barrie",
+        8: "Hamilton",
+        18: "Ottawa",
+        28: "Toronto"
     },
-    "6": {
-        "Halifax": "4",
+    10: {
+        8: "GreaterMont",
+        12: "Quebec"
     },
-    "7": {
-        "Barrie": "1",
-        "Hamilton": "8",
-        "Ottawa / Gatineau Area": "18",
-        "Toronto (GTA)": "28",
-    },
-    "9": {
-        "Greater Montr\u00e9al": "8",
-        "Qu\u00e9bec City": "12",
-    },
-    "10": {
-        "Regina Area": "5",
+    11: {
+        5: "Regina"
     }
 }
 
-#This dictionary is when we pass the id from javascript to python
-#we will change the value, the idea is that i could fit with the position in the kijiji web
+# This dictionary is when we pass the id from javascript to python
+# we will change the value, the idea is that i could fit with the position in the kijiji web
 
 states_id = {
-    0:1,
-    1:2,
-    2:3,
-    3:6,
-    4:7,
-    5:10,
-    6:11
+    0: 1,
+    1: 2,
+    2: 3,
+    3: 6,
+    4: 7,
+    5: 10,
+    6: 11
 }
 
 city_id = {
-    1:[2,3],
-    2:[6,8,20],
-    3:[4],
-    6:[4],
-    7:[1,8,18,28],
-    10:[8,12],
-    11:[5]
-}
-
-states_excel = {
-    0:'/Toronto/',
-    1:'/Vancouver/',
-    2:'/Winnipeg/'
+    1: [2, 3],
+    2: [6, 8, 20],
+    3: [4],
+    6: [4],
+    7: [1, 8, 18, 28],
+    10: [8, 12],
+    11: [5]
 }
 
 categories = {

@@ -19,7 +19,7 @@ class Scraping:
         self.url_excel = ""
 
 
-    def FindPage(self, arg1, arg2):
+    def FindPage(self, arg1, arg2, state, city):
 
         try:
         #Starting de chrome driver
@@ -29,13 +29,10 @@ class Scraping:
 
             #Handling notifications
 
-            chrome_options = webdriver.ChromeOptions()
-            prefs = {"profile.default_content_setting_values.notifications" : 2}
-            chrome_options.add_experimental_option("prefs",prefs)
 
             #Specify the paht
 
-            driver = webdriver.Chrome('C:/Users/tomas/Desktop/chromedriver.exe',chrome_options=chrome_options)
+            driver = webdriver.Safari()
 
             #Later we will check with mobile-facebook
 
@@ -55,7 +52,7 @@ class Scraping:
 
             i = str(arg1)
             j = str(arg2)
-            print(i,j)
+
 
             time.sleep(2)
             #url = marketplace + 'b-commercial-office-space/' + 'alberta/'+ 'wanted-office-space/' + 'k0c40l1700273?%2C&ad=wanted&address='+ address +'%2C+ON&radius=1000.0'
@@ -71,20 +68,27 @@ class Scraping:
 
             #Selection of the filters
 
+            time.sleep(4)
             button =  WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.label-1952128162')))
             button.click()
+            time.sleep(5)
             category = driver.find_element(By.ID,'SearchCategorySelector-item-3')
             category.click()
+            time.sleep(2)
             search = driver.find_element(By.ID, 'SearchKeyword')
             search.send_keys('Wanted Office Space')
+            time.sleep(2)
             send = driver.find_element(By.NAME,'SearchSubmit')
             send.click()
+            time.sleep(2)
             rent = driver.find_element(By.CSS_SELECTOR,'.link-1494669714')
             rent.click()
+            time.sleep(2)
             commerce = driver.find_element(By.CSS_SELECTOR, '.arrowRightContainer-1684363492')
             commerce.click()
-            commerce = driver.find_element(By.CSS_SELECTOR, '.slider-2889926755 a:nth-child(7)')
-            print(commerce.text)
+            time.sleep(2)
+            commerce = driver.find_element(By.CSS_SELECTOR, '.slider-2889926755 a:nth-child(6)')
+            time.sleep(5)
             commerce.click()
 
 
@@ -95,22 +99,20 @@ class Scraping:
             for i in range(3):
                 driver.execute_script('window.scrollTo(0,document.body.scrollHeight)')
             commerce = driver.find_element(By.CSS_SELECTOR, '.form-3964758212  div:nth-child(2) div:nth-child(19) div div div:nth-child(3)')
-            print(commerce.get_attribute('class'))
             commerce.click()
             try:
                 button = driver.find_element(By.CSS_SELECTOR, '.footer-2611485020 button')
                 button.click()
             except:
-                print(5)
+                print("error")
 
-            #a = datetime.datetime.now()
-            #url2 = str(a.strftime('%y-%m-%d-%H:%M:%S'))
-            #url_excel = states_excel[j]  + url2
-            #url_excel = url_excel.replace('/', '-')
-            #url_excel = url_excel.replace(':', '-')
-            #url_excel= '\city' + url_excel
-            #self.url_excel = url_excel
-            #print(self.url_excel)
+            a = datetime.datetime.now()
+            url2 = str(a.strftime('%y-%m-%d-%H:%M:%S'))
+            url_excel = state + '/' + city +'/'+url2
+            url_excel = url_excel.replace('/', '-')
+            url_excel = url_excel.replace(':', '-')
+            url_excel= '/city-' + url_excel
+            self.url_excel = url_excel
 
         except:
             print('e')
@@ -129,19 +131,12 @@ class Scraping:
             elements = driver.find_elements(By.CSS_SELECTOR, ".title:nth-child(1)")
             elements = [x.get_attribute('href') for x in elements ]
             elements = list(set(elements))
-            for e in elements:
-                print(elements)
                 
         info = []
-        print(len(elements))
         i = 0
         for e in elements:
             i = i + 1
             info.append(self.Extract(e,driver))
-            print('-listo')
-        print(info)
-        print(info[0])
-
         return info
 
     def Extract( self, url , driver):
@@ -167,7 +162,6 @@ class Scraping:
 
             title = driver.find_element(By.CSS_SELECTOR,
                                             "h1[class = 'title-2323565163'] ")
-            print(title.text)
             information['Title'] = title.text
 
             # Finding the name of the profile
@@ -211,8 +205,6 @@ class Scraping:
 
             address = driver.find_element(By.CSS_SELECTOR,
                                             ".address-3617944557").text
-            print(address)
-
             information['Address'] = address
 
             return information
@@ -222,7 +214,5 @@ class Scraping:
             #Create the folder where you will put the paths.
             df = pd.DataFrame(info)
             temp = str(Path(__file__).parent.parent.absolute())
-            print(temp)
-            temp = temp + '\Data'
-            print(temp + self.url_excel)
+            temp = temp + '/Data'
             df.to_excel(temp + self.url_excel +'.xlsx')

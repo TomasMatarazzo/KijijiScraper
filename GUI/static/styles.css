@@ -150,7 +150,7 @@ body, form, fieldset, ol, ul, li, h1, h2, h3, h4, h5, h6, p {
     /* ------------------- Content ------------------- */
 
 header{
-    height: 80%;
+    height: 40%;
     max-height: 550px;
 
 }
@@ -177,7 +177,7 @@ img{
 .Logo{
     display: flex;
     height: 10%;
-    margin: 1em 3em 3em 3em;
+    margin: 4em 4em 3em 3em;
     justify-content: baseline;
     align-items: center;
 }
@@ -207,6 +207,7 @@ footer{
     height: 20%;
     align-items: flex-end;
     transition: 0.5s;
+    padding-left: 9%;
 }
 
 .Button, .Send ,.Options{
@@ -313,9 +314,10 @@ input {
 
 @media screen and (max-width: 1000px) {
     .LogoThirdRock{
-        visibility:  hidden;
+        visibility:hidden;
     }
     .footer{
+        padding-left:0%;
         margin-left:3em;
     }
     section{
@@ -325,7 +327,10 @@ input {
 
 @media screen and (max-height: 600px){
     header{
-        height: 100%;
+        height: 60%;
+    }
+    footer{
+        padding-left:0%;
     }
 }
 
